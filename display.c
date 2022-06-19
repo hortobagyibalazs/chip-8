@@ -14,25 +14,20 @@ int window_height = 450;
 void resize(int, int);
 double device_to_normalized(double coord, double axis_size);
 
-void disp_init(int argc, char** argv)
+void disp_init()
 {
-    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    //glutInitWindowPosition(POS);
     glutInitWindowSize(window_width, window_height);
     glutCreateWindow("Chip-8 Emulator");
     glutReshapeFunc(resize);
 
     glutDisplayFunc(disp_draw);
-    glutMainLoop();
 }
 
 void disp_draw()
 {
     double px_width = window_width / COLUMNS;
     double px_height = window_height / ROWS;
-
-    glColor3f(1, 0, 0);
 
     for (int x = 0; x < COLUMNS; x++)
     {
@@ -57,11 +52,13 @@ void disp_draw()
     }
 
     glutSwapBuffers();
+    glutPostRedisplay();
 }
 
 void disp_set_px(uint8_t val, int x, int y)
 {
     framebuffer[x][y] = val;
+    printf("Set \n");
 }
 
 uint8_t disp_get_px(int x, int y)
@@ -77,7 +74,7 @@ void resize(int w, int h)
 
 double device_to_normalized(double coord, double axis_size)
 {
-    double halfAxis = axis_size / 2;
+    double half_axis = axis_size / 2;
 
-    return (coord / halfAxis) - 1;
+    return (coord / half_axis) - 1;
 }

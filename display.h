@@ -13,7 +13,7 @@
 extern int window_width;
 extern int window_height;
 
-void disp_init(int argc, char** argv);
+void disp_init();
 void disp_draw();
 void disp_clear();
 void disp_set_px(uint8_t, int, int);
