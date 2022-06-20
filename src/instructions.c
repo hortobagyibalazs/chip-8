@@ -2,17 +2,18 @@
 // Created by balazs on 6/19/22.
 //
 
-#include "instructions.h"
-#include "display.h"
-#include "input.h"
-#include "memory.h"
+#include "../include/instructions.h"
+#include "../include/display.h"
+#include "../include/input.h"
+#include "../include/memory.h"
 
 #include <stdlib.h>
 #include <time.h>
 
+
 void cls()
 {
-    //disp_clear();
+    disp_clear();
     program_counter += 2;
 }
 
