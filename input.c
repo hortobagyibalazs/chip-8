@@ -9,7 +9,6 @@
 int get_keypad_for_char(unsigned int ch);
 void set_key_value(unsigned char ch, int val);
 
-int key_state[KEYPAD_NUM];
 
 void keyboard_init()
 {
@@ -52,6 +51,6 @@ void set_key_value(unsigned char ch, int val)
 
     if (index != -1)
     {
-        key_state[index] = val;
+        keypad_state[index] = val;
     }
 }

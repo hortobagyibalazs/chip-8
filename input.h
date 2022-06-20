@@ -5,7 +5,9 @@
 #ifndef CHIP_8_INPUT_H
 #define CHIP_8_INPUT_H
 
-#define KEYPAD_NUM 16 // number of keypads
+#define KEYPADS 16 // number of keypads
+
+extern int keypad_state[KEYPADS];
 
 void keyboard_init();
 void key_down(unsigned char, int, int);
