@@ -2,13 +2,14 @@
 // Created by balazs on 6/20/22.
 //
 
-#include "input.h"
+#include "../include/input.h"
 #include <GL/glut.h>
 #include <stdio.h>
 
 int get_keypad_for_char(unsigned int ch);
 void set_key_value(unsigned char ch, int val);
 
+int keypad_state[] = {};
 
 void keyboard_init()
 {

@@ -2,7 +2,7 @@
 // Created by balazs on 6/18/22.
 //
 
-#include "display.h"
+#include "../include/display.h"
 #include <GL/glut.h>
 #include <stdio.h>
 
@@ -55,10 +55,20 @@ void disp_draw()
     glutPostRedisplay();
 }
 
+void disp_clear()
+{
+    for (int x = 0; x < COLUMNS; x++)
+    {
+        for (int y = 0; y < ROWS; y++)
+        {
+            disp_set_px(0, x, y);
+        }
+    }
+}
+
 void disp_set_px(uint8_t val, int x, int y)
 {
     framebuffer[x][y] = val;
-    printf("Set \n");
 }
 
 uint8_t disp_get_px(int x, int y)
