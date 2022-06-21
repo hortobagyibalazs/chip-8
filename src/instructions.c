@@ -9,6 +9,7 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
 
 
 void cls()
@@ -20,7 +21,7 @@ void cls()
 
 void ret()
 {
-    program_counter = stack[stack_pointer--];
+    program_counter = stack[stack_pointer--] + 2;
 }
 
 
@@ -202,15 +203,18 @@ void drw_vx_vy_nbbl(uint8_t x, uint8_t y, uint8_t n)
 {
     data_register[0xF] = 0; // set collision to false
 
-    for (uint8_t _x = x; _x < x + 8; _x++)
-    {
-        for (uint8_t _y = y; _y < y + n; _y++)
-        {
-            uint8_t current = disp_get_px(_x, _y); // currently visible on screen
-            uint8_t px = (((memory[I_register + (_y - y) * 8]) >> (_x - x)) & (0x80 >> (_x - x))) == (0x80 >> (_x - x)); // check if bit is true or false for pixel
-            if (current && px) data_register[0xF] = 1;
-            uint8_t new = current | px;
-            disp_set_px(new, _x, _y);
+    uint8_t vx = data_register[x];
+    uint8_t vy = data_register[y];
+    int height = n;
+
+    for(int _y = 0; _y < height; _y++){
+        uint8_t pixel = memory[I_register + _y];
+        for(int _x = 0; _x < 8; _x++){
+            if(pixel & (0x80 >> _x)){
+                uint8_t current = disp_get_px((_x + vx) % COLUMNS, (_y + vy) % ROWS);
+                if (current) data_register[0xF] = 1;
+                disp_set_px(current ^ pixel, (_x + vx) % COLUMNS, (_y + vy) % ROWS);
+            }
         }
     }
     program_counter += 2;

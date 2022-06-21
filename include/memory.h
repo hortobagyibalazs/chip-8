@@ -22,6 +22,7 @@ extern uint8_t stack_pointer;
 extern uint8_t delay_timer;
 extern uint8_t sound_timer;
 
-void load_rom(char* path);
+void load_font_set();
+int load_rom(char* path);
 
 #endif //CHIP_8_MEMORY_H
