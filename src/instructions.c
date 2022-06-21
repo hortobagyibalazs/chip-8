@@ -315,7 +315,7 @@ void ld_i_vx(uint8_t x)
 
 void ld_vx_i(uint8_t x)
 {
-    for (int i = 0; i < 0xF; i++)
+    for (int i = 0; i <= x; i++)
     {
         data_register[i] = memory[I_register + i];
     }
