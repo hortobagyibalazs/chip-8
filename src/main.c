@@ -10,7 +10,7 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
 
     load_font_set();
-    load_rom("/home/balazs/projects/chip-8/roms/Airplane.ch8");
+    load_rom("/home/balazs/projects/chip-8/roms/Paddles.ch8");
     disp_init();
     keyboard_init();
     cpu_init();

@@ -15,6 +15,7 @@ void keyboard_init()
 {
     glutKeyboardFunc(key_down);
     glutKeyboardUpFunc(key_up);
+    glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 }
 
 void key_up(unsigned char ch, int x, int y)

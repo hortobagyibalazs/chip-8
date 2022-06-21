@@ -12,5 +12,6 @@ extern int keypad_state[KEYPADS];
 void keyboard_init();
 void key_down(unsigned char, int, int);
 void key_up(unsigned char, int, int);
+void clear_keypad_state();
 
 #endif //CHIP_8_INPUT_H
