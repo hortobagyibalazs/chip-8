@@ -52,6 +52,7 @@ void se_vx_byte(uint8_t x, uint8_t kk)
 
 void sne_vx_byte(uint8_t x, uint8_t kk)
 {
+    // 0b111100110
     if (data_register[x] != kk)
     {
         program_counter += 2;
@@ -140,7 +141,7 @@ void sub_vx_vy(uint8_t x, uint8_t y)
 
 void shr_vx(uint8_t x)
 {
-    data_register[0xF] = (data_register[x] % 2 == 1); // VF is set to 1 if tmp's least significant bit is 1 (number is odd)
+    data_register[0xF] = (data_register[x] & 1); // VF is set to 1 if least significant bit is 1
     data_register[x] = data_register[x] >> 1; // divide by 2 by shifting right
     program_counter += 2;
 }
@@ -156,8 +157,8 @@ void subn_vx_vy(uint8_t x, uint8_t y)
 
 void shl_vx(uint8_t x)
 {
-    data_register[0xF] = (data_register[x] & 0x80) == 0x80;
-    data_register[x] = data_register[x] << 2;
+    data_register[0xF] = (data_register[x] >> 7) == 1;
+    data_register[x] = data_register[x] << 1;
     program_counter += 2;
 }
 

@@ -27,7 +27,6 @@ void cycle()
     uint16_t second_byte = memory[program_counter + 1];
     uint16_t instr = second_byte + (first_byte << 8);
 
-    printf("Executing %X at %d , I:%X SP:%0d\n", instr, program_counter, I_register, stack_pointer);
     if (instr == 0x00E0)
     {
         cls();
