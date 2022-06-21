@@ -9,11 +9,14 @@
 #include <stdio.h>
 #include <GL/glut.h>
 
-int del = CPU_FREQUENCY / DELAY_TIMER_FREQUENCY;
-int sound = CPU_FREQUENCY / SOUND_TIMER_FREQUENCY;
+int cpu_timer_current = 0;
+const int cpu_timer_max = 60;
 
-int current_del;
-int current_sound;
+int delay_timer_current = 0;
+const int delay_timer_max = 60; // this value is in relation to CPU timer
+
+int sound_timer_current = 0;
+const int sound_timer_max = 60; // this value is in relation to CPU timer
 
 void cpu_init()
 {
@@ -23,6 +26,16 @@ void cpu_init()
 
 void cycle()
 {
+    if (cpu_timer_current <= cpu_timer_max) {
+        cpu_timer_current++;
+        glutTimerFunc(0, cycle, 0);
+        return;
+    }
+    else
+    {
+        cpu_timer_current = 0;
+    }
+
     uint16_t first_byte = memory[program_counter];
     uint16_t second_byte = memory[program_counter + 1];
     uint16_t instr = second_byte + (first_byte << 8);
@@ -212,13 +225,29 @@ void cycle()
         ld_vx_i(reg);
     }
 
-    if (delay_timer > 0) {
-        delay_timer--;
+    if (delay_timer_current <= delay_timer_max)
+    {
+        delay_timer_current++;
+    }
+    else
+    {
+        delay_timer_current = 0;
+        if (delay_timer > 0) {
+            delay_timer--;
+        }
     }
 
-    if (sound_timer > 0) {
-        sound_timer--;
+    if (sound_timer_current <= sound_timer_max)
+    {
+        sound_timer_current++;
+    }
+    else
+    {
+        sound_timer_current = 0;
+        if (sound_timer > 0) {
+            sound_timer--;
+        }
     }
 
-    glutTimerFunc(1, cycle, 0);
+    glutTimerFunc(0, cycle, 0);
 }
